@@ -1,5 +1,8 @@
-<meta name="google-site-verification" content="Zj83dJkNRDwEbPdRmYm1KfuN3g3B5kIZlpBk_GqDYHI" />
 <h1> IBM Bluepages JS </h1>
+<img alt="David" src="https://img.shields.io/david/aromerohcr/ibm-bluepages-js">
+<img alt="GitHub top language" src="https://img.shields.io/github/languages/top/aromerohcr/ibm-bluepages-js">
+<img alt="GitHub issues" src="https://img.shields.io/github/issues/aromerohcr/ibm-bluepages-js">
+
 
 <p> <b>ibm-bluepages-js</b> helps <b>IBM®</b> Developers working on internal projects that are developed using Nodejs providing an easy tool to authenticate and access directory data available on <b>IBM Bluepages®</b> with Javascript Async/Await functions.</p>
 
