@@ -1,0 +1,33 @@
+{
+  "name": "ibm-bluepages-js",
+  "version": "1.0.0",
+  "description": "A Nodejs module to interact with the IBM Bluepages API.",
+  "main": "ibmBluePages.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aromerohcr/ibm-bluepages-js.git"
+  },
+  "keywords": [
+    "ibm",
+    "bluepages",
+    "nodejs"
+  ],
+  "author": "Andres Romero (aromeroh@cr.ibm.com)",
+  "license": "IPL-1.0",
+  "bugs": {
+    "url": "https://github.com/aromerohcr/ibm-bluepages-js/issues"
+  },
+  "homepage": "https://github.com/aromerohcr/ibm-bluepages-js#readme",
+  "dependencies": {
+    "node-fetch": "^2.6.0",
+    "xmldom": "^0.1.27",
+    "xpath": "0.0.27",
+    "ldapjs": "^1.0.0"
+  },
+  "devDependencies": {
+    "jest": "^24.8.0"
+  }
+}
