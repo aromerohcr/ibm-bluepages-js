@@ -24,7 +24,7 @@
 <p> We are going use the <b>isManager()</b> function to determine the next action </p>
 
 
-```html
+```javascript
 
 const bluePages = require('ibm-blue-pages');
 
