@@ -4,16 +4,12 @@ const xpath = require('xpath');
 const XMLParser = new DOMParser();
 const LDAP = require('ldapjs'); // http://ldapjs.org/client.html
 
-// * Client for connecting to Bluepages LDAPS interface
-const CLIENT = LDAP.createClient({ url: 'ldaps://bluepages.ibm.com:636' });
-
-
 // * Each API call to slaphapi will return XML content
 async function makeAPICall(W3ID) {
 	return await fetch(`https://bluepages.ibm.com/BpHttpApisv3/slaphapi?ibmperson/mail=${W3ID}.list/byxml`)
 		.then(res => res.text())
 		.then(str => XMLParser.parseFromString(str))
-		.catch((error) => console.log(`Error occurred: ${error}`));
+		.catch((error) => console.error(`Error occurred: ${error}`));
 }
 
 function getAttrValue(attrName, xml) {
@@ -156,6 +152,9 @@ async function authenticate(W3ID, password) {
 			scope: 'sub'
 		};
 
+		// * Client for connecting to Bluepages LDAPS interface
+		const CLIENT = LDAP.createClient({ url: 'ldaps://bluepages.ibm.com:636' });
+
 		CLIENT.bind(dn, password, function (error) {
 			if (error) {
 				CLIENT.unbind();
@@ -164,6 +163,7 @@ async function authenticate(W3ID, password) {
 				CLIENT.search('ou=bluepages,o=ibm.com', opts, function(error, res) {
 					res.on('searchEntry', function(entry) {
 						if(entry.object){
+							CLIENT.unbind();
 							resolve(true);
 						} else {
 							CLIENT.unbind();
