@@ -62,4 +62,5 @@ Ensure that you only fix the thing you’re working on. Do not be tempted to fix
 
 <h3>License</h3>
 
-This project is licensed under the IBM Public License
+This project is licensed under the IBM Public License.
+Copyright (c) 2015 IBM
