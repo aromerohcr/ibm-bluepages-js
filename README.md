@@ -29,7 +29,7 @@
 const bluePages = require('ibm-blue-pages');
 
 async function doSomething() {
-  let isManager = await bluePages.isManager('aromeroh@cr.ibm.com);
+  let isManager = await bluePages.isManager('aromeroh@cr.ibm.com');
   
   if(isManager) {
     // Perform a manager action
