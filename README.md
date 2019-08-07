@@ -26,7 +26,7 @@
 
 ```javascript
 
-const bluePages = require('ibm-blue-pages');
+const bluePages = require('ibm-bluepages-js');
 
 async function doSomething() {
   let isManager = await bluePages.isManager('aromeroh@cr.ibm.com');
