@@ -19,22 +19,39 @@
 * `authenticate(W3ID, password)`
 * `isManager(W3ID)`
 
-<h3> Code Demo </h3>
+<h3> Code Examples </h3>
 
-<p> We are going use the <b>isManager()</b> function to determine the next action </p>
-
+<p> Performing an action based on location: </p>
 
 ```javascript
 
 const bluePages = require('ibm-bluepages-js');
 
-async function doSomething() {
-  let isManager = await bluePages.isManager('aromeroh@cr.ibm.com');
+async function doSomethingBasedOnLocation() {
+  let location = await bluePages.getUserLocationByW3ID('aromeroh@cr.ibm.com');
   
-  if(isManager) {
-    // Perform a manager action
+  if(location.countryAlphaCode === 'CR') {
+    // if true code
   } else {
-    // Perform a regular employee action
+    // if else code
+  }
+}
+
+```
+
+<p> Autheticating an account: </p>
+
+```javascript
+
+const bluePages = require('ibm-bluepages-js');
+
+async function doAccountAuthentication() {
+  let success = await bluePages.authenticate('aromeroh@cr.ibm.com', '********');
+  
+  if(success) {
+    // if true code
+  } else {
+    // if else code
   }
 }
 
@@ -49,13 +66,13 @@ $ npm i ibm-bluepages-js
 <ul>
   <li>It only works within the IBM Blue Zone (Protected Network).</li>
   <li>It makes use of LDAPS as the main authentication method which makes traffic confidential and secure by using Secure Sockets Layer (SSL).</li>
-  <li>It requires a properly formatted certificate which is only available in IBM managed devices.</li>
+  <li>It requires a properly formatted certificate only available on IBM managed devices.</li>
 </ul>
 
 <h3>Contributing</h3>
 Ensure that you only fix the thing you’re working on. Do not be tempted to fix some other things that you see along the way, including formatting issues.
 
-<h3>Authors or Acknowledgments</h3>
+<h3>For support using this module</h3>
 <ul>
   <li>aromeroh@cr.ibm.com</li>
 </ul>
