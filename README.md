@@ -1,8 +1,9 @@
 <h1> IBM Bluepages JS </h1>
-<img alt="David" src="https://img.shields.io/david/aromerohcr/ibm-bluepages-js">
 <img alt="GitHub top language" src="https://img.shields.io/github/languages/top/aromerohcr/ibm-bluepages-js">
-<img alt="GitHub issues" src="https://img.shields.io/github/issues/aromerohcr/ibm-bluepages-js">
-
+<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/aromerohcr/ibm-bluepages-js">
+<img alt="npm" src="https://img.shields.io/npm/dm/ibm-bluepages-js">
+<img alt="GitHub issues" src="https://img.shields.io/github/issues-raw/aromerohcr/ibm-bluepages-js">
+<img alt="NPM" src="https://img.shields.io/npm/l/ibm-bluepages-js">
 
 <p> <b>ibm-bluepages-js</b> helps <b>IBM®</b> Developers working on internal projects that are developed using Nodejs providing an easy tool to authenticate and access directory data available on <b>IBM Bluepages®</b> with Javascript Async/Await functions.</p>
 
@@ -70,7 +71,7 @@ $ npm i ibm-bluepages-js
 </ul>
 
 <h3>Contributing</h3>
-Ensure that you only fix the thing you’re working on. Do not be tempted to fix some other things that you see along the way, including formatting issues.
+If you want to contribute to the module and make it better, your help is very welcome. Contributing is also a great way to make the module more constructive and efficient.
 
 <h3>For support using this module</h3>
 <ul>
