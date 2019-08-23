@@ -7,19 +7,6 @@
 
 <p> <b>ibm-bluepages-js</b> helps <b>IBM®</b> Developers working on internal projects that are developed using Nodejs providing an easy tool to authenticate and access directory data available on <b>IBM Bluepages®</b> with Javascript Async/Await functions.</p>
 
-<h3> List of functions </h3>
-
-* `getNameByW3ID(W3ID)`
-* `getUIDByW3ID(W3ID)`
-* `getManagerUIDByUserW3ID(W3ID)`
-* `getUserLocationByW3ID(W3ID)`
-* `getPhoneNumberByW3ID(W3ID)`
-* `getJobFunctionByW3ID(W3ID)`
-* `getPhotoByW3ID(W3ID)`
-* `getUserInformationByW3ID(W3ID)`
-* `authenticate(W3ID, password)`
-* `isManager(W3ID)`
-
 <h3> Code Examples </h3>
 
 <p> Performing an action based on location: </p>
@@ -63,6 +50,20 @@ async function doAccountAuthentication() {
 ```shell
 $ npm i ibm-bluepages-js
 ```
+
+<h3> List of functions </h3>
+
+* `getNameByW3ID(W3ID)`
+* `getUIDByW3ID(W3ID)`
+* `getManagerUIDByUserW3ID(W3ID)`
+* `getUserLocationByW3ID(W3ID)`
+* `getPhoneNumberByW3ID(W3ID)`
+* `getJobFunctionByW3ID(W3ID)`
+* `getPhotoByW3ID(W3ID)`
+* `getUserInformationByW3ID(W3ID)`
+* `authenticate(W3ID, password)`
+* `isManager(W3ID)`
+
 <h3>What makes this module secure?</h3>
 <ul>
   <li>It only works within the IBM Blue Zone (Protected Network).</li>
