@@ -9,7 +9,7 @@
 
 <h3> Code Examples </h3>
 
-<p> Performing an action based on location: </p>
+<p> Perform an action based on location: </p>
 
 ```javascript
 
@@ -27,7 +27,7 @@ async function doSomethingBasedOnLocation() {
 
 ```
 
-<p> Autheticating an account: </p>
+<p> Authenticate an account: </p>
 
 ```javascript
 
