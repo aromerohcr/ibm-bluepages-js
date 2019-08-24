@@ -46,6 +46,16 @@ async function getNameByW3ID(W3ID) {
 /**
 * @returns {Promise<string>}
 */
+async function getPrimaryUserNameByW3ID(W3ID) {
+	let xml = await makeAPICall(W3ID);
+	let userName = getAttrValue('primaryuserid', xml);
+
+	return userName.toLowerCase();
+}
+
+/**
+* @returns {Promise<string>}
+*/
 async function getUIDByW3ID(W3ID) {
 	let xml = await makeAPICall(W3ID);
 	let uid = getAttrValue('uid', xml); 
@@ -72,7 +82,8 @@ async function getUserLocationByW3ID(W3ID) {
 	return {
 		buildingName: getAttrValue('buildingname', xml),
 		country: getAttrValue('co', xml),
-		countryAlphaCode: getAttrValue('c', xml)
+		countryAlphaCode: getAttrValue('c', xml),
+		employeeCountryCode: getAttrValue('employeecountrycode', xml)
 	};
 }
 
@@ -128,7 +139,8 @@ async function getUserInformationByW3ID(W3ID) {
 		userPhoto: `https://w3-services1.w3-969.ibm.com/myw3/unified-profile-photo/v1/image/${W3ID}?type=bp`,
 		userJobrespons: getAttrValue('jobresponsibilities', xml),
 		userTelephonenumber: getAttrValue('telephonenumber', xml),
-		userEmail : getAttrValue('mail', xml)
+		userEmail : getAttrValue('mail', xml),
+		buildingName: getAttrValue('buildingname', xml)
 	};
 }
 
@@ -184,13 +196,14 @@ async function authenticate(W3ID, password) {
 
 module.exports = {
 	getNameByW3ID,
+	getPrimaryUserNameByW3ID,
 	getUIDByW3ID,
 	getManagerUIDByUserW3ID,
 	getUserLocationByW3ID,
-	isManager,
 	getPhoneNumberByW3ID,
 	getJobFunctionByW3ID,
 	getPhotoByW3ID,
 	getUserInformationByW3ID,
-	authenticate
+	authenticate,
+	isManager
 };
