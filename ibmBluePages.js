@@ -1,15 +1,15 @@
-const fetch = require('node-fetch');
 const DOMParser = require('xmldom').DOMParser;
-const xpath = require('xpath');
 const XMLParser = new DOMParser();
-const LDAP = require('ldapjs'); // http://ldapjs.org/client.html
+const LDAP = require('ldapjs'); // https://ldapjs.org/client.html
+const xpath = require('xpath');
+const fetch = require('node-fetch');
+const urls = require('./urls');
 
-// * Each API call to slaphapi will return XML content
-async function makeAPICall(W3ID) {
-	return await fetch(`https://bluepages.ibm.com/BpHttpApisv3/slaphapi?ibmperson/mail=${W3ID}.list/byxml`)
-		.then(res => res.text())
-		.then(str => XMLParser.parseFromString(str))
-		.catch((error) => console.error(`Error occurred: ${error}`));
+async function bluePagesQuery(W3ID) {
+	return fetch(urls.api + `/mail=${W3ID}.list/byxml`)
+			.then(res => res.text())
+			.then(str => XMLParser.parseFromString(str))
+			.catch((error) => console.error(`Error: ${error}`));
 }
 
 function getAttrValue(attrName, xml) {
@@ -23,7 +23,7 @@ function getAttrValue(attrName, xml) {
 }
 
 async function getDnByW3ID(W3ID) {
-	let xml = await makeAPICall(W3ID);
+	let xml = await bluePagesQuery(W3ID);
 	let nodes = xpath.select('//directory-entries/entry', xml);
 
 	if (nodes.length > 0) {
@@ -34,50 +34,55 @@ async function getDnByW3ID(W3ID) {
 }
 
 /**
+* @param {String} W3ID
 * @returns {Promise<string>}
 */
 async function getNameByW3ID(W3ID) {
-	let xml = await makeAPICall(W3ID);
+	let xml = await bluePagesQuery(W3ID);
 	let name = getAttrValue('givenname', xml) + ' ' + getAttrValue('sn', xml); 
 
 	return name;
 }
 
 /**
+* @param {String} W3ID
 * @returns {Promise<string>}
 */
 async function getPrimaryUserNameByW3ID(W3ID) {
-	let xml = await makeAPICall(W3ID);
+	let xml = await bluePagesQuery(W3ID);
 	let userName = getAttrValue('primaryuserid', xml);
 
 	return userName.toLowerCase();
 }
 
 /**
+* @param {String} W3ID
 * @returns {Promise<string>}
 */
 async function getUIDByW3ID(W3ID) {
-	let xml = await makeAPICall(W3ID);
+	let xml = await bluePagesQuery(W3ID);
 	let uid = getAttrValue('uid', xml); 
     
 	return uid;
 }
 
 /**
+* @param {String} W3ID
 * @returns {Promise<string>}
 */
 async function getManagerUIDByUserW3ID(W3ID) {
-	let xml = await makeAPICall(W3ID);
+	let xml = await bluePagesQuery(W3ID);
 	let managerUid = getAttrValue('managerserialnumber', xml) + getAttrValue('managercountrycode', xml); 
     
 	return managerUid;
 }
 
 /**
+* @param {String} W3ID
 * @returns {Promise<Object>}
 */
 async function getUserLocationByW3ID(W3ID) {
-	let xml = await makeAPICall(W3ID);
+	let xml = await bluePagesQuery(W3ID);
 
 	return {
 		buildingName: getAttrValue('buildingname', xml),
@@ -88,55 +93,56 @@ async function getUserLocationByW3ID(W3ID) {
 }
 
 /**
+* @param {String} W3ID
 * @returns {Promise<boolean>}
 */
 async function isManager(W3ID) {
-	let xml = await makeAPICall(W3ID);
+	let xml = await bluePagesQuery(W3ID);
 	let flag = getAttrValue('ismanager', xml);
     
 	return (flag === 'Y'); // Y: True, N: False...
 }
 
 /**
+* @param {String} W3ID
 * @returns {Promise<string>}
 */
 async function getPhoneNumberByW3ID(W3ID) {
-	let xml = await makeAPICall(W3ID);
+	let xml = await bluePagesQuery(W3ID);
 	let phoneNumber = getAttrValue('telephonenumber', xml);
     
 	return phoneNumber;
 }
 
-/* 
-* Important! the return value of this function 
-* could contain alternative params as Service Line or BU
-*/
 /**
+* @param {String} W3ID
 * @returns {Promise<string>}
 */
 async function getJobFunctionByW3ID(W3ID) {
-	let xml = await makeAPICall(W3ID);
+	let xml = await bluePagesQuery(W3ID);
 	let jobFunction = getAttrValue('jobresponsibilities', xml);
     
 	return jobFunction;
 }
 
 /**
+* @param {String} W3ID
 * @returns {Promise<string>}
 */
 async function getPhotoByW3ID(W3ID) {
-	return `https://w3-services1.w3-969.ibm.com/myw3/unified-profile-photo/v1/image/${W3ID}?type=bp`;
+	return urls.photo + `/${W3ID}?type=bp`;
 }
 
 /**
+* @param {String} W3ID
 * @returns {Promise<Object>}
 */
 async function getUserInformationByW3ID(W3ID) {
-	let xml = await makeAPICall(W3ID);
+	let xml = await bluePagesQuery(W3ID);
 
 	return {
 		userName: `${getAttrValue('givenname', xml)} ${getAttrValue('sn', xml)}`,
-		userPhoto: `https://w3-services1.w3-969.ibm.com/myw3/unified-profile-photo/v1/image/${W3ID}?type=bp`,
+		userPhoto: urls.photo + `/${W3ID}?type=bp`,
 		userJobrespons: getAttrValue('jobresponsibilities', xml),
 		userTelephonenumber: getAttrValue('telephonenumber', xml),
 		userEmail : getAttrValue('mail', xml),
@@ -145,6 +151,8 @@ async function getUserInformationByW3ID(W3ID) {
 }
 
 /**
+* @param {String} W3ID
+* @param {String} password
 * @returns {Promise<boolean>}
 */
 async function authenticate(W3ID, password) {
@@ -165,7 +173,7 @@ async function authenticate(W3ID, password) {
 		};
 
 		// * Client for connecting to Bluepages LDAPS interface
-		const CLIENT = LDAP.createClient({ url: 'ldaps://bluepages.ibm.com:636' });
+		const CLIENT = LDAP.createClient({ url: urls.ldaps });
 
 		CLIENT.bind(dn, password, function (error) {
 			if (error) {
