@@ -7,9 +7,9 @@ const urls = require('./urls');
 
 async function bluePagesQuery(W3ID) {
 	return fetch(urls.api + `/mail=${W3ID}.list/byxml`)
-			.then(res => res.text())
-			.then(str => XMLParser.parseFromString(str))
-			.catch((error) => console.error(`Error: ${error}`));
+		.then(res => res.text())
+		.then(str => XMLParser.parseFromString(str))
+		.catch((error) => console.error(`Error: ${error}`));
 }
 
 function getAttrValue(attrName, xml) {
