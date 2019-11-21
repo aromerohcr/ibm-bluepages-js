@@ -17,13 +17,29 @@ const bluePages = require('ibm-bluepages-js');
 
 async function doSomethingBasedOnLocation() {
   let location = await bluePages.getUserLocationByW3ID('aromeroh@cr.ibm.com');
-  
+
   if(location.countryAlphaCode === 'CR') {
     // if true code
   } else {
     // if else code
   }
 }
+
+```
+
+<p> Define a function to return user information: </p>
+
+```javascript
+
+const bluePages = require('ibm-bluepages-js');
+
+const userProfile = function(id) {
+  return bluePages.getUserInformationByW3ID(id).then(function(result){
+    return result;
+  }).catch(function(error){
+    return error;
+  });
+};
 
 ```
 
@@ -35,7 +51,7 @@ const bluePages = require('ibm-bluepages-js');
 
 async function doAccountAuthentication() {
   let success = await bluePages.authenticate('aromeroh@cr.ibm.com', '********');
-  
+
   if(success) {
     // if true code
   } else {
