@@ -88,6 +88,7 @@ async function getUserLocationByW3ID(W3ID) {
 		buildingName: getAttrValue('buildingname', xml),
 		country: getAttrValue('co', xml),
 		countryAlphaCode: getAttrValue('c', xml),
+		workLocation: getAttrValue('workloc', xml),
 		employeeCountryCode: getAttrValue('employeecountrycode', xml)
 	};
 }

@@ -10,6 +10,16 @@ test('the result is an object containing users information', async () => {
 	return expect(data).toBeDefined();
 });
 
+test('the result is an object containing users location', async () => {
+  const data = await bluePages.getUserLocationByW3ID('aromeroh@cr.ibm.com');
+  return expect(data).toBeDefined();
+});
+
+test('the result is an object containing users location including the office', async () => {
+  const data = await bluePages.getUserLocationByW3ID('aromeroh@cr.ibm.com');
+  return expect(data).toHaveProperty('workLocation');
+});
+
 test('the result is the primary username of the user', async () => {
 	const data = await bluePages.getPrimaryUserNameByW3ID('aromeroh@cr.ibm.com');
 	return expect(data).toBe('aromeroh');
