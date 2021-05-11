@@ -38,7 +38,7 @@ This shows only the latest 5 versions.
 
 * `2.1.3`
   * Fixed security vulnerabilities (npm audit fix)
-  * hosted-git-info and lodash vulnerabilities
+  * `hosted-git-info` and `lodash` vulnerabilities
 
 * `2.1.2`
   * Upgraded dependencies and dev environment
